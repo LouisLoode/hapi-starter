@@ -1,4 +1,11 @@
-// const dotenv = require('dotenv').load();
+if (process.env.NODE_ENV !== 'production'){
+  console.log(process.env.NODE_ENV);
+    const file = 'env/' + process.env.NODE_ENV + '.env';
+    console.log('config file: '+file);
+    require('dotenv').config({ path: file });
+
+    console.log('MONGODB_URI :'+process.env.MONGODB_URI);
+}
 
 module.exports = {
     env: process.env.NODE_ENV || 'development',
@@ -10,11 +17,22 @@ module.exports = {
         host: process.env.WORKER_HOST || 'localhost',
         port: process.env.WORKER_PORT || 8080
     },
-    mongodb: process.env.MONGODB_URI || 'mongodb://mongodb:27017/test',
+    mongodb: process.env.MONGODB_URI || 'mongodb://localhost:27017/debug',
     rabbitmq: process.env.RABBIT_URI || 'amqp://localhost',
     key: {
         privateKey: process.env.PRIVATE_KEY || 'YourPrivateKey',
         tokenExpiration: process.env.TOKEN_EXPIRATION || 3600000,
         tokenExpirationDescription: process.env.TOKEN_EXPIRATION_DESCRIPTION || '1 hour'
+    },
+    facebook: {
+        redirect_uri: 'http://' + process.env.API_HOST + ':' + process.env.API_PORT + '/connect/facebook/callback',
+        key: process.env.FACEBOOK_KEY,
+        secret: process.env.FACEBOOK_SECRET,
+        callback: '/auth/handle_facebook',
+        scope: [
+            'public_profile',
+            'email',
+            'user_friends'
+        ]
     }
 };

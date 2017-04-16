@@ -1,5 +1,5 @@
 # Use Node v7 as the base image.
-FROM node:7
+FROM node:latest
 MAINTAINER Louis Debraine <louisdebraine@gmail.com>
 
 RUN npm install lab -g
@@ -12,7 +12,7 @@ WORKDIR /api
 # Install dependencies
 RUN npm install
 
-EXPOSE 8000
+#EXPOSE 8000
 
 # Run our app.
-#CMD ["npm", "start"]
+CMD ["npm", "start"]

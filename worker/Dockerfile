@@ -1,5 +1,5 @@
 # Use Node v7 as the base image.
-FROM node:7
+FROM node:latest
 MAINTAINER Louis Debraine <louisdebraine@gmail.com>
 
 # Add everything in the current directory to our image, in the 'app' folder.

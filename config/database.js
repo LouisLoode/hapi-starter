@@ -1,15 +1,18 @@
-import Mongoose from 'mongoose';
+import mongoose from 'mongoose';
+import config from './config';
 
-// Configurations
-const config = require('./config');
-Mongoose.connect(config.mongodb);
+console.log('config.mongodb: '+config.mongodb);
 
-const db = Mongoose.connection;
+mongoose.connect(config.mongodb);
+
+const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Connection error'));
 db.once('open', () => {
 
-    console.log('Connection with Mongodb succeeded');
-    
+    if (process.env.NODE_ENV !== 'test'){
+        console.log('Connection with Mongodb succeeded');
+    }
+
 });
 
 module.exports = db;

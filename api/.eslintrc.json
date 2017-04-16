@@ -3,6 +3,9 @@
       "es6": true,
       "node": true
     },
+    "ecmaFeatures": {
+      "modules": true
+    },
     "extends": "hapi",
     "parserOptions": {
       "ecmaVersion": 6,

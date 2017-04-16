@@ -21,20 +21,36 @@ services:
 
   api:
     build: ./api
+    container_name: hapi_api
+    tty: true
+    environment:
+      - COMPOSE_HTTP_TIMEOUT=200
+    volumes:
+      - "./api:/api"
+      - "./config:/api/config"
     restart: always
+    # command: yarn run start
     depends_on:
       - rabbitmq
       - mongodb
     ports:
       - 8000:8000
-    environment:
-      - NODE_ENV=development
+    env_file:
+      - ./config/env/test.env
 
   worker:
     build: ./worker
-    # restart: always
+    container_name: hapi_worker
+    tty: true
     environment:
-      - NODE_ENV=development
+      - COMPOSE_HTTP_TIMEOUT=200
+    volumes:
+      - "./worker:/worker"
+      - "./config:/worker/config"
+    # command: yarn run start
+    # restart: always
+    env_file:
+      - ./config/env/test.env
     depends_on:
       - rabbitmq
       - mongodb

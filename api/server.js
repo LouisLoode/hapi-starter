@@ -8,6 +8,7 @@ import glob from 'glob';
 import path from 'path';
 
 // Import configuration
+import policies from './config/policies';
 import Config from './config/config';
 import Swagger from './config/swagger';
 
@@ -62,29 +63,46 @@ if (process.env.NODE_ENV !== 'test') {
     });
 }
 
-// Load routes
-glob.sync('src/routes/**/*.js', {
-    root: __dirname
-}).forEach((file) => {
+server.register(require('hapi-auth-jwt2'), () => {
+    // Define strategy
+    server.auth.strategy('jwt', 'jwt',{
+        key: process.env.JWT_KEY,
+        verifyFunc: policies.Jwt
+    });
 
-    const route = require(path.join(__dirname, file));
-    server.route(route);
+    server.auth.default('jwt');
+
+    // Look through the routes in
+    // all the subdirectories of API
+    // and create a new route for each
     if (process.env.NODE_ENV !== 'production'){
-        console.log(`${route.method} ${route.path} (file:  ${file})`);
+        console.log('ROUTING :');
     }
 
-});
+    // Load routes
+    glob.sync('src/routes/**/*.js', {
+        root: __dirname
+    }).forEach((file) => {
 
-if (module.parent) {
-    server.start((err) => {
-
-        if (err) {
-          // Fancy error handling here
-            console.error('Error was handled!');
-            console.error(err);
+        const route = require(path.join(__dirname, file));
+        server.route(route);
+        if (process.env.NODE_ENV !== 'production'){
+            console.log(`${route.method} ${route.path} (file:  ${file})`);
         }
-        console.log(`Server started at ${server.info.uri}`);
-        console.log(`Environment ${Config.env}`);
 
     });
-}
+
+
+        server.start((err) => {
+
+            if (err) {
+              // Fancy error handling here
+                console.error('Error was handled!');
+                console.error(err);
+            }
+            console.log(`Server started at ${server.info.uri}`);
+            console.log(`Environment ${Config.env}`);
+
+        });
+    
+});

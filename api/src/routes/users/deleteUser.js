@@ -1,4 +1,4 @@
-import {deleteOneUser} from '../../handlers/userHandler';
+import { deleteOneUser } from '../../handlers/userHandler';
 
 module.exports = {
     method: 'DELETE',

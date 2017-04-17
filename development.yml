@@ -16,6 +16,8 @@ services:
     image: mongo:3.0.2
     container_name: hapi_mongo
     restart: always
+    volumes:
+      - "../mongo_data:/data/db"
     ports:
       - 27017:27017
 

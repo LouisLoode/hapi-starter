@@ -1,4 +1,4 @@
-import {getOneUser} from '../../handlers/userHandler';
+import { getOneUser } from '../../handlers/userHandler';
 import Joi from 'joi';
 
 module.exports = {
@@ -10,9 +10,9 @@ module.exports = {
         description: 'Get One User data',
         notes: 'Get One User data',
         validate: {
-          params: {
-            id: Joi.string().required()
-          },
+            params: {
+                id: Joi.string().required()
+            }
         }
     },
     handler: getOneUser

@@ -1,11 +1,11 @@
-import {getAllUsers} from '../../handlers/userHandler';
+import { getAllUsers } from '../../handlers/userHandler';
 
 module.exports = {
     method: 'GET',
     path: '/users',
     config: {
         // Include this API in swagger documentation
-        // auth: 'jwt',
+        auth: 'jwt',
         // auth: false,
         tags: ['api'],
         description: 'Get All Users',

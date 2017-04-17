@@ -1,4 +1,4 @@
-import {getProfile} from '../../handlers/authHandler';
+import { getProfile } from '../../handlers/authHandler';
 
 module.exports = {
     method: 'GET',

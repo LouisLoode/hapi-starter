@@ -9,10 +9,20 @@ import path from 'path';
 
 // Import configuration
 import Config from './config/config';
-import './config/database';
 import Swagger from './config/swagger';
 
 const server = module.exports = new Hapi.Server();
+
+import './config/database';
+
+// bootstrap models
+glob.sync('src/models/*.js', {
+    root: __dirname
+}).forEach((file) => {
+
+    require(path.join(__dirname, file));
+
+});
 
 server.connection({ port: 8000 });
 
@@ -52,6 +62,7 @@ if (process.env.NODE_ENV !== 'test') {
     });
 }
 
+// Load routes
 glob.sync('src/routes/**/*.js', {
     root: __dirname
 }).forEach((file) => {
@@ -64,8 +75,7 @@ glob.sync('src/routes/**/*.js', {
 
 });
 
-
-
+if (module.parent) {
     server.start((err) => {
 
         if (err) {
@@ -77,3 +87,4 @@ glob.sync('src/routes/**/*.js', {
         console.log(`Environment ${Config.env}`);
 
     });
+}

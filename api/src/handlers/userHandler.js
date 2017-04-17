@@ -29,29 +29,6 @@ export function verifyUniqueUser(req, res) {
   });
 };
 
-export function verifyCredentials(req, res) {
-  const password = req.payload.password;
-  // Find an entry from the database that
-  // matches either the email or username
-  UserModel.findOne({
-    $or: [
-      { email: req.payload.email },
-      { username: req.payload.username }
-    ]
-  }, (err, user) => {
-    if (user) {
-      var auth = user.authenticate(password, user.password);
-      if(!auth){
-        res(Boom.badRequest('Incorrect password!'));
-      } else {
-        res(user);
-      }
-    } else {
-      res(Boom.badRequest('Incorrect username or email!'));
-    }
-  });
-};
-
 export function deleteOneUser(req, res) {
     //Fetch all data from mongodb User Collection
     UserModel.findOneAndRemove({_id: req.auth.crendentials._id}, (error, data) => {
@@ -105,6 +82,18 @@ export function putOneUser(req, res) { // Create mongodb user object to save it 
       res(Boom.serverUnavailable('Failed to put a message', error));
     } else {
       res({ statusCode: 200, message: 'User Saved Successfully', data: data });
+    }
+  });
+}
+
+export function registerUser(req, res) { // Create mongodb user object to save it into database
+  let user = new UserModel(req.payload); // Call save methods to save data into database
+  // and pass callback methods to handle error
+  user.save((error, data) => {
+    if (error) {
+      res(Boom.serverUnavailable('Failed to register an user', error));
+    } else {
+      res({ statusCode: 201, message: 'User Register Successfully', data:data, token: createToken(user) }).code(201);
     }
   });
 }

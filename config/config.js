@@ -1,9 +1,5 @@
 if (process.env.NODE_ENV !== 'production'){
-  console.log(process.env.NODE_ENV);
-    const file = 'env/' + process.env.NODE_ENV + '.env';
-    console.log('config file: '+file);
-    require('dotenv').config({ path: file });
-
+    console.log(process.env.NODE_ENV);
     console.log('MONGODB_URI :'+process.env.MONGODB_URI);
 }
 

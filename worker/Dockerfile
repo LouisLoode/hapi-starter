@@ -1,5 +1,5 @@
 # Use Node v7 as the base image.
-FROM node:latest
+FROM node:7
 MAINTAINER Louis Debraine <louisdebraine@gmail.com>
 
 # Add everything in the current directory to our image, in the 'app' folder.
@@ -8,7 +8,7 @@ ADD . /worker
 WORKDIR /worker
 
 # Install dependencies
-RUN npm install
+RUN yarn install
 
 # Run our app.
-CMD ["npm", "start"]
+#CMD npm start

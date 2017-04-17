@@ -98,4 +98,4 @@ UserSchema.methods.authenticate = (password, encrypt) => {
 }
 
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = Mongoose.model('User', UserSchema);

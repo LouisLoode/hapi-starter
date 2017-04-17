@@ -22,19 +22,22 @@ services:
   api:
     build: ./api
     restart: always
+    command: npm start
+    tty: true
+    environment:
+      - COMPOSE_HTTP_TIMEOUT=200
     depends_on:
       - rabbitmq
       - mongodb
-    ports:
-      - 8000:8000
-    environment:
-      - NODE_ENV=development
+    env_file:
+      - ./config/env/development.env
 
   worker:
     build: ./worker
     # restart: always
-    environment:
-      - NODE_ENV=development
+    command: npm start
+    env_file:
+      - ./config/env/development.env
     depends_on:
       - rabbitmq
       - mongodb

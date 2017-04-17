@@ -1,18 +1,27 @@
 import mongoose from 'mongoose';
-import config from './config';
+import Config from './config';
 
-console.log('config.mongodb: '+config.mongodb);
+// connect mongo
+mongoose.connect(Config.mongodb);
 
-mongoose.connect(config.mongodb);
-
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'Connection error'));
-db.once('open', () => {
-
-    if (process.env.NODE_ENV !== 'test'){
-        console.log('Connection with Mongodb succeeded');
-    }
-
+// When successfully connected
+mongoose.connection.on('connected', function () {
+  console.log('Mongoose default connection open to ' + Config.mongodb);
 });
 
-module.exports = db;
+// If the connection throws an error
+mongoose.connection.on('error',function (err) {
+  console.log('Mongoose default connection error: ' + err);
+});
+
+// When the connection is disconnected
+mongoose.connection.on('disconnected', function () {
+  console.log('Mongoose default connection disconnected');
+});
+
+// When the connection is open
+mongoose.connection.on('open', function () {
+  console.log('Mongoose default connection is open');
+});
+
+module.exports = mongoose

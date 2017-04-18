@@ -81,18 +81,19 @@ server.register(require('hapi-auth-jwt2'), () => {
 
     // Load routes
     glob.sync('src/routes/**/*.js', {
-        root: __dirname
+        root: __dirname,
+        ignore: 'src/routes/**/*.spec.js'
     }).forEach((file) => {
 
         const route = require(path.join(__dirname, file));
         server.route(route);
         if (process.env.NODE_ENV !== 'production'){
-            console.log(`${route.method} ${route.path} (file:  ${file})`);
+            console.log(`--> ${route.path} (file:  ${file})  [${route.method}]`);
         }
 
     });
 
-
+    if (process.env.NODE_ENV !== 'test') {
         server.start((err) => {
 
             if (err) {
@@ -104,5 +105,5 @@ server.register(require('hapi-auth-jwt2'), () => {
             console.log(`Environment ${Config.env}`);
 
         });
-    
+    }
 });

@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import Config from './config';
 
 // connect mongo
+mongoose.Promise = global.Promise;
 mongoose.connect(Config.mongodb);
 
 // When successfully connected

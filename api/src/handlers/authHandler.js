@@ -85,13 +85,15 @@ authHandler.getProfile = (req, res) => {
 
 authHandler.registerUser = (req, res) => { // Create mongodb user object to save it into database
 
-    console.log(req.payload);
-    const user = new UserModel(req.payload); // Call save methods to save data into database
     // and pass callback methods to handle error
-
-    user.username = req.payload.username;
-    user.email = req.payload.email;
-    authHandler.hashPassword(req.payload.password, (err, hash) => {
+    if (req.payload.password !== req.payload.password2){
+        res(Boom.badRequest('passwords are differents'));
+    }
+    else {
+        const user = new UserModel(req.payload); // Call save methods to save data into database
+        user.username = req.payload.username;
+        user.email = req.payload.email;
+        authHandler.hashPassword(req.payload.password, (err, hash) => {
 
         if (err) {
             throw Boom.badRequest(err);
@@ -107,5 +109,6 @@ authHandler.registerUser = (req, res) => { // Create mongodb user object to save
                 res({ statusCode: 201, message: 'User Register Successfully', data:data, token: authHandler.createToken(user) }).code(201);
             }
         });
-    });
+      });
+    }
 };

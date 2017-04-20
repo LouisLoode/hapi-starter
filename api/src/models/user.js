@@ -53,7 +53,7 @@ const UserSchema = new Schema({
 
 //Transform
 UserSchema.options.toJSON = {
-    transform: (doc, ret) => {
+    transform(doc, ret) {
 
         ret.id = ret._id;
         delete ret.password;

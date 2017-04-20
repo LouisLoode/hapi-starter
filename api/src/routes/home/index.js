@@ -7,7 +7,7 @@ module.exports = {
         description: 'Home',
         notes: 'Get home page'
     },
-    handler: (request, reply) => { //Action
+    handler: function (request, reply) { //Action
       // Response JSON object
         reply({
             statusCode: 200,

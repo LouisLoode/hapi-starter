@@ -8,6 +8,8 @@ services:
     volumes:
       - "./api:/api"
       - "./config:/api/config"
+      - "./models:/api/src/models"
+      - "./queues:/api/src/queues"
     ports:
       - 8000:8000
 
@@ -17,3 +19,5 @@ services:
     volumes:
       - "./worker:/worker"
       - "./config:/worker/config"
+      - "./models:/worker/src/models"
+      - "./queues:/worker/src/queues"

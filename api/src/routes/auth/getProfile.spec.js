@@ -74,6 +74,28 @@ lab.experiment('GetProfile route', () => {
     });
 
     //Success case
+    lab.test('check if route don\'t return profile with a wrong token', (done) => {
+
+        const options = {
+            method: 'GET',
+            url: '/auth/profile',
+            headers: {
+                authorization: 'Bearer qdsklmf' + token_user
+            }
+        };
+
+        Server.inject(options, (response, error) => {
+
+            Code.expect(response.statusCode).to.equal(401);
+            Code.expect(response.result.error).to.equal('Unauthorized');
+            Code.expect(response.result.message).to.equal('Missing authentication');
+            done();
+
+        });
+
+    });
+
+    //Success case
     lab.test('check if route can return profile by a token', (done) => {
 
         const options = {

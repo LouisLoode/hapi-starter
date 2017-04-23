@@ -14,7 +14,12 @@ config/env/production.env
 # Api
 api/node_modules/*
 api/config/*
+api/src/queues/*
+api/src/models/*
+api/src/routes/home/test.js
 
 # Worker
 worker/config/*
 worker/node_modules/*
+worker/src/queues/*
+worker/src/models/*

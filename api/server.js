@@ -1,5 +1,6 @@
 // Import dependencies
 import Hapi from 'hapi';
+
 import Good from 'good';
 import Inert from 'inert';
 import Vision from 'vision';
@@ -11,6 +12,7 @@ import path from 'path';
 import policies from './config/policies';
 import Config from './config/config';
 import Swagger from './config/swagger';
+import RabbitMQ from './config/rabbitmq';
 
 const server = module.exports = new Hapi.Server();
 
@@ -25,7 +27,12 @@ glob.sync('src/models/*.js', {
 
 });
 
-server.connection({ port: 8000 });
+server.connection({
+        port: 8000,
+        routes: {
+            cors: true
+        }
+    });
 
 if (process.env.NODE_ENV === 'development') {
     server.register([
@@ -62,6 +69,8 @@ if (process.env.NODE_ENV !== 'test') {
 
     });
 }
+
+server.register(RabbitMQ);
 
 server.register(require('hapi-auth-jwt2'), () => {
     // Define strategy

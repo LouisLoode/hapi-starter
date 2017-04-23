@@ -34,8 +34,11 @@ services:
 
   worker:
     build: ./worker
-    # restart: always
+    restart: always
     command: npm start
+    tty: true
+    environment:
+      - COMPOSE_HTTP_TIMEOUT=200
     env_file:
       - ./config/env/test.env
     depends_on:

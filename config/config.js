@@ -13,7 +13,7 @@ module.exports = {
         port: process.env.WORKER_PORT || 8080
     },
     mongodb: process.env.MONGODB_URI || 'mongodb://localhost:27017/debug',
-    rabbitmq: process.env.RABBIT_URI || 'amqp://localhost',
+    rabbitmq: process.env.RABBITMQ_URI || 'amqp://rabbitmq',
     key: {
         privateKey: process.env.PRIVATE_KEY || 'YourPrivateKey',
         tokenExpiration: process.env.TOKEN_EXPIRATION || 3600000,

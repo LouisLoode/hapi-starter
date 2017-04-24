@@ -1,68 +1,26 @@
-language: bash
-
+language: node_js
+node_js:
+  - 7
+cache:
+  yarn: true
 env:
-  - QUIET=0 UML_FIX=0 UML_DOCKERCOMPOSE=2 BRANCH=master                                                                DOCKER_VERSION=get.docker.com
-  - QUIET=0 UML_FIX=0 UML_DOCKERCOMPOSE=2 BRANCH=stable                                                                DOCKER_VERSION=get.docker.com
-  - QUIET=0 UML_FIX=0 UML_DOCKERCOMPOSE=2 BRANCH=develop DOCKER_BACKEND_FS=tmpfs DOCKER_STORAGE_DRIVER=aufs            DOCKER_VERSION=get.docker.com
-  - QUIET=0 UML_FIX=0 UML_DOCKERCOMPOSE=2 BRANCH=develop DOCKER_BACKEND_FS=tmpfs DOCKER_STORAGE_DRIVER=devicemapper    DOCKER_VERSION=get.docker.com
-  - QUIET=0 UML_FIX=0 UML_DOCKERCOMPOSE=2 BRANCH=develop DOCKER_BACKEND_FS=tmpfs DOCKER_STORAGE_DRIVER=vfs             DOCKER_VERSION=get.docker.com
-  - QUIET=0 UML_FIX=0 UML_DOCKERCOMPOSE=2 BRANCH=develop DOCKER_BACKEND_FS=host  DOCKER_STORAGE_DRIVER=devicemapper    DOCKER_VERSION=get.docker.com
-
-
-matrix:
-  allow_failures:
-    # Using version from get.docker.com
-    - env: QUIET=0 UML_FIX=0 UML_DOCKERCOMPOSE=1 BRANCH=master                                                                DOCKER_VERSION=get.docker.com
-    - env: QUIET=0 UML_FIX=0 UML_DOCKERCOMPOSE=1 BRANCH=stable                                                                DOCKER_VERSION=get.docker.com
-    - env: QUIET=0 UML_FIX=0 UML_DOCKERCOMPOSE=1 BRANCH=develop DOCKER_BACKEND_FS=tmpfs DOCKER_STORAGE_DRIVER=aufs            DOCKER_VERSION=get.docker.com
-    - env: QUIET=0 UML_FIX=0 UML_DOCKERCOMPOSE=1 BRANCH=develop DOCKER_BACKEND_FS=tmpfs DOCKER_STORAGE_DRIVER=devicemapper    DOCKER_VERSION=get.docker.com
-    - env: QUIET=0 UML_FIX=0 UML_DOCKERCOMPOSE=1 BRANCH=develop DOCKER_BACKEND_FS=tmpfs DOCKER_STORAGE_DRIVER=vfs             DOCKER_VERSION=get.docker.com
-    - env: QUIET=0 UML_FIX=0 UML_DOCKERCOMPOSE=1 BRANCH=develop DOCKER_BACKEND_FS=host  DOCKER_STORAGE_DRIVER=devicemapper    DOCKER_VERSION=get.docker.com
-
-
-sudo: true
-
-
+  global:
+  - NODE_ENV=test
+services:
+- mongodb
+- rabbitmq
+- redis-server
 install:
-  - curl -sLo - http://j.mp/install-travis-docker | sh -xe
-
-
+- cd ./api && npm install
+- cd ../worker && npm install
+- cd ../
+cache:
+  directories:
+    - ./api/node_modules
+    - ./worker/node_modules
+before_script:
+- sleep 10
 script:
-  - df -h
-  - ./run docker info
-  - ./run docker run busybox date
-  - ./run docker-compose build
-  - ./run docker-compose run aaa date
-  - ./run docker info
-  - df -h
-
-
-
-# language: node_js
-# node_js:
-#   - 7
-# cache:
-#   yarn: true
-# env:
-#   global:
-#   - NODE_ENV=test
-# services:
-# - mongodb
-# - rabbitmq
-# - redis-server
-# install:
-# - pwd
-# - cd ./api && npm install
-# - pwd
-# - cd ./worker && npm install
-# - pwd
-# cache:
-#   directories:
-#     - ./api/node_modules
-#     - ./worker/node_modules
-# before_script:
-# - sleep 10
-# script:
-# - pwd
-# - cd ./api && npm test
-# - pwd
+- pwd
+- cd ./api && npm test
+- pwd

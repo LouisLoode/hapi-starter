@@ -1,7 +1,7 @@
 import RabbitMQ from '../../../config/rabbitmq';
 module.exports = {
     method: 'GET', // Methods Type
-    path: '/test', // Url
+    path: '/email', // Url
     config: { // Include this API in swagger documentation
         auth: false,
         tags: ['api'],
@@ -11,7 +11,7 @@ module.exports = {
     handler: function (request, reply) {
 
         const body = {
-            key:'value',
+            key:'lol',
             key2:'value',
             key3:'value',
             key4:'value',
@@ -21,12 +21,11 @@ module.exports = {
 
         const options = {
             persistent: true,
-
-            deliveryMode: true, // Non-persistent (1) or persistent (2)
+            deliveryMode: 2, // Non-persistent (1) or persistent (2)
             // priority: 0, // 0 to 9
             contentType: 'application/json'
         };
-        RabbitMQ.publish('test', body, options);
+        RabbitMQ.publish('lol', body, options);
 
         reply({ msg: 'Coucou !'   });
 

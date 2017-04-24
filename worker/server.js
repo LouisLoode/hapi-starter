@@ -1,7 +1,7 @@
 
 import amqp from 'amqp';
 import Config from './config/config';
-const RabbitMQ = amqp.createConnection({url: Config.rabbitmq});
+const RabbitMQ = amqp.createConnection({ url: Config.rabbitmq });
 import glob from 'glob';
 import path from 'path';
 
@@ -19,7 +19,8 @@ RabbitMQ.on('ready', () => {
     const job = require(path.join(__dirname, file));
     const name = path.basename(file, '.js');
     const options = {
-      durable: true
+      durable: true,
+      autoDelete: false
     };
     RabbitMQ.queue(name, options, job);
 

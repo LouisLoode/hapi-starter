@@ -1,17 +1,13 @@
 sudo: required
-
 language: node_js
 node_js:
   - 7
-
 services:
     - docker
-
 env:
     global:
         - DOCKER_VERSION=17.04.0~ce-0~ubuntu-trusty
         - DOCKER_COMPOSE_VERSION=1.11.2
-
 before_install:
     # list docker-engine versions
     - apt-cache madison docker-engine
@@ -26,7 +22,6 @@ before_install:
     - sudo mv docker-compose /usr/local/bin
     - docker version
     - docker-compose version
-
 install:
     - docker-compose -f docker-compose.yml -f test.yml up --build -d
     - docker ps -a

@@ -7,7 +7,7 @@
   "license": "ISC",
   "scripts": {
     "start": "nodemon bootstrap.js --config nodemon.json",
-    "test": "./node_modules/lab/bin/lab src -v -P spec",
+    "test": "lab src -v -P spec",
     "lint": "eslint server.js queues || true"
   },
   "dependencies": {

@@ -9,16 +9,17 @@ module.exports = {
         notes: 'Get home page'
     },
     handler: function (request, reply) {
-        let body = {
-             key:'value',
-             key2:'value',
-             key3:'value',
-             key4:'value',
-             key5:'value'
+
+        const body = {
+            key:'value',
+            key2:'value',
+            key3:'value',
+            key4:'value',
+            key5:'value'
         };
 
 
-        let options = {
+        const options = {
             persistent: true,
 
             deliveryMode: true, // Non-persistent (1) or persistent (2)

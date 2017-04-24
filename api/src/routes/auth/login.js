@@ -27,7 +27,7 @@ module.exports = {
             )
         }
     },
-    handler: function (request, reply) {
+    handler: (request, reply) => {
 
         reply({ statusCode: 201, message: 'User Login Successfully', data:request.pre.user, token: createToken(request.pre.user) }).code(201);
     }

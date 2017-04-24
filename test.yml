@@ -1,0 +1,43 @@
+version: '2'
+services:
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: hapi_rabbit
+    restart: always
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+
+  mongodb:
+    image: mongo:3.0.2
+    container_name: hapi_mongo
+    restart: always
+    volumes:
+      - "../mongo_data:/data/db"
+
+  api:
+    build: ./api
+    restart: always
+    command: npm start
+    tty: true
+    environment:
+      - COMPOSE_HTTP_TIMEOUT=200
+    depends_on:
+      - rabbitmq
+      - mongodb
+    env_file:
+      - ./config/env/test.env
+
+  worker:
+    build: ./worker
+    restart: always
+    command: npm start
+    tty: true
+    environment:
+      - COMPOSE_HTTP_TIMEOUT=200
+    env_file:
+      - ./config/env/test.env
+    depends_on:
+      - rabbitmq
+      - mongodb

@@ -1,6 +1,8 @@
 sudo: required
 
 language: node_js
+node_js:
+  - 7
 
 services:
     - docker
@@ -22,51 +24,11 @@ before_install:
     - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
     - chmod +x docker-compose
     - sudo mv docker-compose /usr/local/bin
-
-script:
     - docker version
     - docker-compose version
 
-
-
-
-
-# language: node_js
-# sudo: required
-# node_js:
-#   - 7
-# services:
-# - mongodb
-# - rabbitmq
-# cache:
-#   yarn: true
-#   directories:
-#     - ./api/node_modules
-#     - ./worker/node_modules
-# env:
-#   global:
-#   - NODE_ENV=test
-# before_install:
-# - pwd && ls
-# - cp -r config api/config
-# - pwd && ls
-# - cp -r models api/src/models
-# - pwd && ls
-# - cp -r worker worker/config
-# - pwd && ls
-# - cp -r models api/src/models
-# - pwd && ls
-# install:
-# - cd ./api && npm install
-# - pwd && ls
-# - cd ../worker && npm install
-# - pwd && ls
-# - cd ../
-# - pwd && ls
-# before_script:
-# - sleep 10
-# - pwd && ls
-# script:
-# - pwd && ls
-# - cd ./api && npm test
-# - pwd && ls
+install:
+    - docker-compose -f docker-compose.yml -f test.yml up --build -d
+    - docker ps -a
+    - docker exec hapi_api npm test
+    - docker exec hapi_worker npm test

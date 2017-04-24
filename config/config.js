@@ -2,7 +2,7 @@ if (process.env.NODE_ENV !== 'production'){
     console.log('NODE_ENV : ' + process.env.NODE_ENV);
 }
 if (process.env.NODE_ENV === 'test') {
-    require('dotenv').config({path: './env/test.env'})
+    require('dotenv').config({ path: './env/test.env' });
 }
 
 module.exports = {

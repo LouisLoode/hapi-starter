@@ -5,7 +5,8 @@ const policies = module.exports = {};
 policies.Jwt = (decoded, request, callback) => {
 
     UserModel.findOne({ _id: decoded.id }).then((user, err) => {
-        if(err){
+      
+        if (err) {
             console.log(err);
         }
         if (user) {

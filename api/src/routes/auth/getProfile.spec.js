@@ -62,7 +62,7 @@ lab.experiment('GetProfile route', () => {
         };
 
         Server.inject(options, (response, error) => {
-
+          console.log(response.result);
             Code.expect(response.statusCode).to.equal(401);
             Code.expect(response.result.error).to.equal('Unauthorized');
             Code.expect(response.result.message).to.equal('Missing authentication');
@@ -107,7 +107,7 @@ lab.experiment('GetProfile route', () => {
         };
 
         Server.inject(options, (response, error) => {
-
+console.log(response.result);
             Code.expect(response.statusCode).to.equal(200);
             Code.expect(response.result.message).to.equal('User Data Successfully Fetched');
             Code.expect(response.result.data.username).to.equal(randomlastName);

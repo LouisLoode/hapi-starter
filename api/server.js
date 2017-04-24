@@ -2,8 +2,11 @@
 import Hapi from 'hapi';
 import Blipp from 'blipp';
 import Good from 'good';
-// import Inert from 'inert';
-// import Vision from 'vision';
+import Inert from 'inert';
+import Vision from 'vision';
+
+// Import database
+import './config/database';
 
 import HapiAuthJwt2 from 'hapi-auth-jwt2';
 
@@ -13,12 +16,9 @@ import path from 'path';
 // Import configuration
 import policies from './config/policies';
 import Config from './config/config';
-// import Swagger from './config/swagger';
+import Swagger from './config/swagger';
 
 const server = module.exports = new Hapi.Server();
-
-// Import database
-import './config/database';
 
 // bootstrap models
 glob.sync('src/models/*.js', {
@@ -37,13 +37,13 @@ server.connection({
     }
 });
 
-// if (process.env.NODE_ENV === 'development') {
-//     server.register([
-//         Inert,
-//         Vision,
-//         Swagger
-//     ]);
-// }
+if (process.env.NODE_ENV === 'development') {
+    server.register([
+        Inert,
+        Vision,
+        Swagger
+    ]);
+}
 
 // Logger
 if (process.env.NODE_ENV !== 'test') {
@@ -97,7 +97,7 @@ server.register(HapiAuthJwt2, () => {
 
     });
 
-    if (process.env.NODE_ENV !== 'test') {
+    // if (process.env.NODE_ENV !== 'test') {
         server.register({ register: Blipp, options: { showAuth : true } }, (err) => {
 
             if (err) {
@@ -117,5 +117,5 @@ server.register(HapiAuthJwt2, () => {
             });
 
         });
-    }
+    // }
 });

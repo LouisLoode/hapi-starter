@@ -1,4 +1,3 @@
-
 import amqp from 'amqp';
 import Config from './config/config';
 const RabbitMQ = amqp.createConnection({ url: Config.rabbitmq });
@@ -7,7 +6,7 @@ import path from 'path';
 
 // add this for better debuging
 RabbitMQ.on('error', (error) => {
-  console.log("Error from amqp: ", error);
+  console.log('Error from amqp: ', error);
 });
 
 // Wait for connection to become established.

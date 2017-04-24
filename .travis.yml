@@ -18,15 +18,14 @@ before_install:
     - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
     - chmod +x docker-compose
     - sudo mv docker-compose /usr/local/bin
-    - docker version
-    - docker-compose version
+    - docker version && docker-compose version
 install:
     - docker-compose -f docker-compose.yml -f development.yml up --build -d
     - docker ps -a
-
+before_script:
+    - sleep 15
 script:
     - docker exec hapi_api npm test
     # - docker exec hapi_worker npm test
-
 after_script:
     - docker-compose down

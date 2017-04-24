@@ -18,8 +18,7 @@ services:
 
   api:
     build: ./api
-    restart: always
-    command: npm start
+    command: npm test
     tty: true
     environment:
       - COMPOSE_HTTP_TIMEOUT=200
@@ -31,8 +30,7 @@ services:
 
   worker:
     build: ./worker
-    restart: always
-    command: npm start
+    command: npm test
     tty: true
     environment:
       - COMPOSE_HTTP_TIMEOUT=200

@@ -1,12 +1,12 @@
 import Mongoose from 'mongoose';
-import BlueBird from 'bluebird';
+// import BlueBird from 'bluebird';
 import Config from './config';
 
-console.log(Config.mongodb);
+// console.log(Config.mongodb);
 
 // connect mongo
-// Mongoose.Promise = global.Promise;
-Mongoose.Promise = BlueBird;
+Mongoose.Promise = global.Promise;
+// Mongoose.Promise = BlueBird;
 Mongoose.connect(Config.mongodb);
 
 // When successfully connected

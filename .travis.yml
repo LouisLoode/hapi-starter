@@ -1,38 +1,72 @@
-language: node_js
-node_js:
-  - 7
+sudo: required
+
+language: go
+
 services:
-- mongodb
-- rabbitmq
-cache:
-  yarn: true
-  directories:
-    - ./api/node_modules
-    - ./worker/node_modules
+    - docker
+
 env:
-  global:
-  - NODE_ENV=test
+    global:
+        - DOCKER_VERSION=17.03.1-ce~trusty
+        - DOCKER_COMPOSE_VERSION=1.11.2
+
 before_install:
-- pwd && ls
-- cp config api/config
-- pwd && ls
-- cp models api/src/models
-- pwd && ls
-- cp worker worker/config
-- pwd && ls
-- cp models api/src/models
-- pwd && ls
-install:
-- cd ./api && npm install
-- pwd && ls
-- cd ../worker && npm install
-- pwd && ls
-- cd ../
-- pwd && ls
-before_script:
-- sleep 10
-- pwd && ls
+    # list docker-engine versions
+    - apt-cache madison docker-engine
+
+    # upgrade docker-engine to specific version
+    - sudo apt-get -o Dpkg::Options::="--force-confnew" install -y docker-engine=${DOCKER_VERSION}
+
+    # reinstall docker-compose at specific version
+    - sudo rm -f /usr/local/bin/docker-compose
+    - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+    - chmod +x docker-compose
+    - sudo mv docker-compose /usr/local/bin
+
 script:
-- pwd && ls
-- cd ./api && npm test
-- pwd && ls 
+    - docker version
+    - docker-compose version
+
+
+
+
+
+# language: node_js
+# sudo: required
+# node_js:
+#   - 7
+# services:
+# - mongodb
+# - rabbitmq
+# cache:
+#   yarn: true
+#   directories:
+#     - ./api/node_modules
+#     - ./worker/node_modules
+# env:
+#   global:
+#   - NODE_ENV=test
+# before_install:
+# - pwd && ls
+# - cp config api/config
+# - pwd && ls
+# - cp models api/src/models
+# - pwd && ls
+# - cp worker worker/config
+# - pwd && ls
+# - cp models api/src/models
+# - pwd && ls
+# install:
+# - cd ./api && npm install
+# - pwd && ls
+# - cd ../worker && npm install
+# - pwd && ls
+# - cd ../
+# - pwd && ls
+# before_script:
+# - sleep 10
+# - pwd && ls
+# script:
+# - pwd && ls
+# - cd ./api && npm test
+# - pwd && ls

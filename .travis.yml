@@ -7,7 +7,7 @@ services:
 
 env:
     global:
-        - DOCKER_VERSION=17.03.1-ce~trusty
+        - DOCKER_VERSION=17.04.0~ce-0~ubuntu-trusty
         - DOCKER_COMPOSE_VERSION=1.11.2
 
 before_install:
@@ -48,13 +48,13 @@ script:
 #   - NODE_ENV=test
 # before_install:
 # - pwd && ls
-# - cp config api/config
+# - cp -r config api/config
 # - pwd && ls
-# - cp models api/src/models
+# - cp -r models api/src/models
 # - pwd && ls
-# - cp worker worker/config
+# - cp -r worker worker/config
 # - pwd && ls
-# - cp models api/src/models
+# - cp -r models api/src/models
 # - pwd && ls
 # install:
 # - cd ./api && npm install

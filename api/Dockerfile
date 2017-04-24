@@ -10,7 +10,7 @@ ADD . /api
 WORKDIR /api
 
 # Install dependencies
-RUN yarn install
+RUN npm install
 
 # Expose our server port.
 EXPOSE 8000

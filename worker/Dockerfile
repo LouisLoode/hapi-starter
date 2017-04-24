@@ -10,7 +10,7 @@ ADD . /worker
 WORKDIR /worker
 
 # Install dependencies
-RUN yarn install
+RUN npm install
 
 # Run our app.
 #CMD npm start

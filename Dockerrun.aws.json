@@ -14,12 +14,6 @@
       }
     },
     {
-      "name": "queues",
-      "host": {
-        "sourcePath": "/var/app/current/queues"
-      }
-    },
-    {
       "name": "config",
       "host": {
         "sourcePath": "/var/app/current/config"
@@ -58,10 +52,6 @@
           "containerPath": "/usr/src/api/config"
         },
         {
-          "sourceVolume": "queues",
-          "containerPath": "/usr/src/api/src/queues"
-        },
-        {
           "sourceVolume": "models",
           "containerPath": "/usr/src/api/src/models"
         }
@@ -84,10 +74,6 @@
         {
           "sourceVolume": "config",
           "containerPath": "/usr/src/worker/config"
-        },
-        {
-          "sourceVolume": "queues",
-          "containerPath": "/usr/src/worker/src/queues"
         },
         {
           "sourceVolume": "models",

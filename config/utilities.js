@@ -21,7 +21,7 @@ exports.isValidObjectID = (str) => {
     // coerce to string so the function can be generically used to test both strings and native objectIds created by the driver
     str = str + '';
     const len = str.length;
-    const valid = false;
+    let valid = false;
 
     if (len === 12 || len === 24) {
         valid = /^[0-9a-fA-F]+$/.test(str);

@@ -62,7 +62,7 @@ lab.experiment('GetProfile route', () => {
         };
 
         Server.inject(options, (response, error) => {
-
+          
             Code.expect(response.statusCode).to.equal(401);
             Code.expect(response.result.error).to.equal('Unauthorized');
             Code.expect(response.result.message).to.equal('Missing authentication');

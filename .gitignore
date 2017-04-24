@@ -21,5 +21,4 @@ api/src/routes/home/test.js
 # Worker
 worker/config/*
 worker/node_modules/*
-worker/src/queues/*
 worker/src/models/*

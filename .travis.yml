@@ -10,6 +10,11 @@ services:
 - mongodb
 - rabbitmq
 - redis-server
+before_install:
+- cp ./config ./api/config
+- cp ./models ./api/src/models
+- cp ./worker ./worker/config
+- cp ./models ./api/src/models
 install:
 - cd ./api && npm install
 - cd ../worker && npm install

@@ -1,31 +1,38 @@
 language: node_js
 node_js:
   - 7
-cache:
-  yarn: true
-env:
-  global:
-  - NODE_ENV=test
 services:
 - mongodb
 - rabbitmq
-- redis-server
-before_install:
-- cp ./config ./api/config
-- cp ./models ./api/src/models
-- cp ./worker ./worker/config
-- cp ./models ./api/src/models
-install:
-- cd ./api && npm install
-- cd ../worker && npm install
-- cd ../
 cache:
+  yarn: true
   directories:
     - ./api/node_modules
     - ./worker/node_modules
+env:
+  global:
+  - NODE_ENV=test
+before_install:
+- pwd && ls
+- cp config api/config
+- pwd && ls
+- cp models api/src/models
+- pwd && ls
+- cp worker worker/config
+- pwd && ls
+- cp models api/src/models
+- pwd && ls
+install:
+- cd ./api && npm install
+- pwd && ls
+- cd ../worker && npm install
+- pwd && ls
+- cd ../
+- pwd && ls
 before_script:
 - sleep 10
+- pwd && ls
 script:
-- pwd
+- pwd && ls
 - cd ./api && npm test
-- pwd
+- pwd && ls 

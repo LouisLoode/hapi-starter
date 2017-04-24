@@ -21,7 +21,7 @@ before_install:
     - docker version
     - docker-compose version
 install:
-    - docker-compose -f docker-compose.yml -f test.yml up --build -d
+    - docker-compose -f docker-compose.yml -f development.yml up --build -d
     - docker ps -a
     - docker exec hapi_api npm test
     - docker exec hapi_worker npm test

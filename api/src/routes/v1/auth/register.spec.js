@@ -1,9 +1,7 @@
-require( 'babel-core/register' );
-
 const Code = require('code');   // assertion library
 const Lab = require('lab');
-const UserModel = require('../../../src/models/user');
-const Server = require('../../../server');
+const UserModel = require('../../../models/user');
+const Server = require('../../../../server');
 const Faker = require('faker');
 
 const lab = exports.lab = Lab.script();
@@ -23,7 +21,7 @@ lab.experiment('Register route', () => {
 
         const options = {
             method: 'POST',
-            url: '/auth/register',
+            url: '/v1/auth/register',
             payload: {
                 email: randomEmail,
                 password: 'testtest',
@@ -47,7 +45,7 @@ lab.experiment('Register route', () => {
 
         const options = {
             method: 'POST',
-            url: '/auth/register',
+            url: '/v1/auth/register',
             payload: {
                 username: randomlastName,
                 password: 'testtest',
@@ -71,7 +69,7 @@ lab.experiment('Register route', () => {
 
         const options = {
             method: 'POST',
-            url: '/auth/register',
+            url: '/v1/auth/register',
             payload: {
                 username: randomlastName,
                 email: randomEmail,
@@ -95,7 +93,7 @@ lab.experiment('Register route', () => {
 
         const options = {
             method: 'POST',
-            url: '/auth/register',
+            url: '/v1/auth/register',
             payload: {
                 username: randomlastName,
                 email: randomEmail,
@@ -119,7 +117,7 @@ lab.experiment('Register route', () => {
 
         const options = {
             method: 'POST',
-            url: '/auth/register',
+            url: '/v1/auth/register',
             payload: {
                 username: randomlastName,
                 email: randomEmail,
@@ -143,7 +141,7 @@ lab.experiment('Register route', () => {
 
         const options = {
             method: 'POST',
-            url: '/auth/register',
+            url: '/v1/auth/register',
             payload: {
                 username: randomlastName,
                 email: randomEmail,
@@ -170,7 +168,7 @@ lab.experiment('Register route', () => {
 
         const options = {
             method: 'POST',
-            url: '/auth/register',
+            url: '/v1/auth/register',
             payload: {
                 username: randomlastName,
                 email: randomEmail,
@@ -196,7 +194,7 @@ lab.experiment('Register route', () => {
 
         const options = {
             method: 'GET',
-            url: '/auth/profile'
+            url: '/v1/auth/profile'
         };
 
         Server.inject(options, (response, error) => {
@@ -216,7 +214,7 @@ lab.experiment('Register route', () => {
 
         const options = {
             method: 'GET',
-            url: '/auth/profile',
+            url: '/v1/auth/profile',
             headers: {
                 authorization: 'Bearer ' + token_user
             }

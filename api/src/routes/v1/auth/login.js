@@ -1,14 +1,14 @@
-import { createToken, verifyCredentials } from '../../handlers/authHandler';
-import Joi from 'joi';
+const AuthHandler = require('../../../handlers/authHandler');
+const Joi = require('joi');
 
 module.exports = {
     method: 'POST',
-    path: '/auth/login',
+    path: '/v1/auth/login',
     config: {
         auth: false,
         // Check the user's password against the DB
         pre: [
-            { method: verifyCredentials, assign: 'user' }
+            { method: AuthHandler.verifyCredentials, assign: 'user' }
         ],
         // Include this API in swagger documentation
         tags: ['api'],
@@ -29,6 +29,6 @@ module.exports = {
     },
     handler: (request, reply) => {
 
-        reply({ statusCode: 201, message: 'User Login Successfully', data:request.pre.user, token: createToken(request.pre.user) }).code(201);
+        reply({ statusCode: 201, message: 'User Login Successfully', data:request.pre.user, token: AuthHandler.createToken(request.pre.user) }).code(201);
     }
 };

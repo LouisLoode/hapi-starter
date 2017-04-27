@@ -1,37 +1,37 @@
 // Import dependencies
-import Hapi from 'hapi';
-import Blipp from 'blipp';
-import Good from 'good';
-import Inert from 'inert';
-import Vision from 'vision';
+const Hapi = require('hapi');
+const Blipp = require('blipp');
+const Good = require('good');
+const Inert = require('inert');
+const Vision = require('vision');
 
 // Import database
-import './config/database';
+require('./config/database');
 
-import HapiAuthJwt2 from 'hapi-auth-jwt2';
+const HapiAuthJwt2 = require('hapi-auth-jwt2');
 
-import glob from 'glob';
-import path from 'path';
+const Glob = require('glob');
+const Path = require('path');
 
 // Import configuration
-import policies from './config/policies';
-import Config from './config/config';
-import Swagger from './config/swagger';
+const Policies = require('./config/policies');
+const Config = require('./config/config');
+const Swagger = require('./config/swagger');
 
-const server = module.exports = new Hapi.Server();
+const server = new Hapi.Server();
 
 // bootstrap models
-glob.sync('src/models/*.js', {
+Glob.sync('src/models/*.js', {
     root: __dirname,
     ignore: 'src/models/**/*.spec.js'
 }).forEach((file) => {
 
-    require(path.join(__dirname, file));
+    require(Path.join(__dirname, file));
 
 });
 
 server.connection({
-    port: 8000,
+    port: 9000,
     routes: {
         cors: true
     }
@@ -77,7 +77,7 @@ server.register(HapiAuthJwt2, () => {
     // Define strategy
     server.auth.strategy('jwt', 'jwt',{
         key: process.env.JWT_KEY,
-        verifyFunc: policies.Jwt
+        verifyFunc: Policies.Jwt
     });
 
     server.auth.default('jwt');
@@ -87,35 +87,37 @@ server.register(HapiAuthJwt2, () => {
     }
 
     // Load routes
-    glob.sync('src/routes/**/*.js', {
+    Glob.sync('src/routes/**/*.js', {
         root: __dirname,
         ignore: 'src/routes/**/*.spec.js'
     }).forEach((file) => {
 
-        const route = require(path.join(__dirname, file));
+        const route = require(Path.join(__dirname, file));
         server.route(route);
 
     });
 
     // if (process.env.NODE_ENV !== 'test') {
-        server.register({ register: Blipp, options: { showAuth : true } }, (err) => {
+    server.register({ register: Blipp, options: { showAuth : true } }, (err) => {
+
+        if (err) {
+            console.error('Error was handled!');
+            console.error(err);
+        }
+
+        server.start((err) => {
 
             if (err) {
                 console.error('Error was handled!');
                 console.error(err);
             }
-
-            server.start((err) => {
-
-                if (err) {
-                    console.error('Error was handled!');
-                    console.error(err);
-                }
-                console.log(`Server started at ${server.info.uri}`);
-                console.log(`Environment ${Config.env}`);
-
-            });
+            console.log(`Server started at ${server.info.uri}`);
+            console.log(`Environment ${Config.env}`);
 
         });
+
+    });
     // }
 });
+
+module.exports = server;

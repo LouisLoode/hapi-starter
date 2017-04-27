@@ -1,9 +1,7 @@
-require( 'babel-core/register' );
-
 const Code = require('code');   // assertion library
 const Lab = require('lab');
 const lab = exports.lab = Lab.script();
-const Server = require('../../../server');
+const Server = require('../../../../server');
 
 lab.experiment('Home route', () => {
 

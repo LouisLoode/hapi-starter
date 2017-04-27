@@ -1,8 +1,9 @@
-import { getAllUsers } from '../../handlers/userHandler';
+const UserHandler = require('../../../handlers/userHandler');
+const Joi = require('joi');
 
 module.exports = {
     method: 'GET',
-    path: '/users',
+    path: '/v1/users',
     config: {
         // Include this API in swagger documentation
         auth: 'jwt',
@@ -13,7 +14,12 @@ module.exports = {
         cache: {
             expiresIn: 15 * 1000,
             privacy: 'private'
+        },
+        validate: {
+            headers: Joi.object({
+                'authorization': Joi.string().required()
+            }).unknown()
         }
     },
-    handler: getAllUsers
+    handler: UserHandler.getAllUsers
 };

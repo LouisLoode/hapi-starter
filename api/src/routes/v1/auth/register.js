@@ -1,14 +1,14 @@
-import { registerUser } from '../../handlers/authHandler';
-import { verifyUniqueUser } from '../../handlers/userHandler';
-import Joi from 'joi';
+const AuthHandler = require('../../../handlers/authHandler');
+const UserHandler = require('../../../handlers/userHandler');
+const Joi = require('joi');
 
 module.exports = {
     method: 'POST',
-    path: '/auth/register',
+    path: '/v1/auth/register',
     config: { // "tags" enable swagger to document API
         auth: false,
         pre: [
-            { method: verifyUniqueUser }
+            { method: UserHandler.verifyUniqueUser }
         ],
         tags: ['api'],
         description: 'Save user data',
@@ -22,5 +22,5 @@ module.exports = {
             }
         }
     },
-    handler: registerUser
+    handler: AuthHandler.registerUser
 };

@@ -1,15 +1,15 @@
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
-import Boom from 'boom';
-import UserModel from '../models/user';
-import config from '../../config/config';
+const Jwt = require('jsonwebtoken');
+const Bcrypt = require('bcryptjs');
+const Boom = require('boom');
+const UserModel = require('../models/user');
+const Config = require('../../config/config');
 
 const authHandler = {
 
     // Configurations files
     createToken(user) {
 
-        return jwt.sign({ id: user.id, username: user.username, email: user.email }, config.key.privateKey, { algorithm: 'HS256', expiresIn: '1h' } );
+        return Jwt.sign({ id: user.id, username: user.username, email: user.email }, Config.key.privateKey, { algorithm: 'HS256', expiresIn: '1h' } );
 
     },
 
@@ -49,13 +49,13 @@ const authHandler = {
     hashPassword(password, cb) {
 
         // Generate a salt at level 10 strength
-        bcrypt.genSalt(10, (err, salt) => {
+        Bcrypt.genSalt(10, (err, salt) => {
 
             if (err){
                 return cb(err);
             }
 
-            bcrypt.hash(password, salt, (err, hash) => {
+            Bcrypt.hash(password, salt, (err, hash) => {
 
                 return cb(err, hash);
             });
@@ -104,7 +104,7 @@ const authHandler = {
                         throw Boom.badRequest(err);
                     }
                     else {
-                        // If the user is saved successfully, issue a JWT
+                        // If the user is saved successfully, issue a Jwt
                         res({ statusCode: 201, message: 'User Register Successfully', data, token: authHandler.createToken(user) }).code(201);
                     }
                 });

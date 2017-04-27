@@ -1,8 +1,8 @@
-import amqp from 'amqp';
-import Config from './config/config';
+const amqp = require('amqp');
+const Config = require('./config/config');
 const RabbitMQ = amqp.createConnection({ url: Config.rabbitmq });
-import glob from 'glob';
-import path from 'path';
+const glob = require('glob');
+const path = require('path');
 
 // add this for better debuging
 RabbitMQ.on('error', (error) => {

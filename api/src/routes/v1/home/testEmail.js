@@ -1,7 +1,8 @@
-import RabbitMQ from '../../../config/rabbitmq';
+const RabbitMQ = require('../../../../config/rabbitmq');
+
 module.exports = {
     method: 'GET', // Methods Type
-    path: '/email', // Url
+    path: '/v1/email', // Url
     config: { // Include this API in swagger documentation
         auth: false,
         tags: ['api'],

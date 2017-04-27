@@ -13,7 +13,7 @@ WORKDIR /api
 RUN yarn install
 
 # Expose our server port.
-EXPOSE 8000
+EXPOSE 9000
 
 # Run our app.
 #CMD npm start

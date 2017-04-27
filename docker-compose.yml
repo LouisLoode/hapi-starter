@@ -10,7 +10,7 @@ services:
       - "./config:/api/config"
       - "./models:/api/src/models"
     ports:
-      - 8000:8000
+      - 9000:9000
 
   worker:
     build: ./worker

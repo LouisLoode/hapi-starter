@@ -1,3 +1,3 @@
-import amqp from 'amqp';
-import Config from './config';
-module.exports = amqp.createConnection({ url: Config.rabbitmq });
+const Amqp = require('amqp');
+const Config = require('./config');
+module.exports = Amqp.createConnection({ url: Config.rabbitmq });

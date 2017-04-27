@@ -1,11 +1,9 @@
-require( 'babel-core/register' );
-
 const Code = require('code');   // assertion library
 const Lab = require('lab');
-const UserModel = require('../../../src/models/user');
-const AuthHandler = require('../../handlers/authHandler');
+const UserModel = require('../../../../src/models/user');
+const AuthHandler = require('../../../handlers/authHandler');
 
-const Server = require('../../../server');
+const Server = require('../../../../server');
 const Faker = require('faker');
 
 const lab = exports.lab = Lab.script();
@@ -56,7 +54,7 @@ lab.experiment('Login route', () => {
 
         const options = {
             method: 'POST',
-            url: '/auth/login',
+            url: '/v1/auth/login',
             payload: {
                 email: randomEmail,
                 password: 'testtest'
@@ -81,7 +79,7 @@ lab.experiment('Login route', () => {
 
         const options = {
             method: 'POST',
-            url: '/auth/login',
+            url: '/v1/auth/login',
             payload: {
                 username: randomlastName,
                 password: 'testtest'
@@ -105,7 +103,7 @@ lab.experiment('Login route', () => {
 
         const options = {
             method: 'GET',
-            url: '/auth/profile'
+            url: '/v1/auth/profile'
         };
 
         Server.inject(options, (response, error) => {
@@ -125,7 +123,7 @@ lab.experiment('Login route', () => {
 
         const options = {
             method: 'GET',
-            url: '/auth/profile',
+            url: '/v1/auth/profile',
             headers: {
                 authorization: 'Bearer ' + token_user
             }
@@ -148,7 +146,7 @@ lab.experiment('Login route', () => {
 
         const options = {
             method: 'POST',
-            url: '/auth/login',
+            url: '/v1/auth/login',
             payload: {
                 username: randomlastName,
                 password: 'testtestqdsf'
@@ -171,7 +169,7 @@ lab.experiment('Login route', () => {
 
         const options = {
             method: 'POST',
-            url: '/auth/login',
+            url: '/v1/auth/login',
             payload: {
                 username: randomlastName + 'qsdfqsd',
                 password: 'testtest'

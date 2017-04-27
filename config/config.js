@@ -1,21 +1,24 @@
+if (process.env.NODE_ENV === undefined) {
+    process.env.NODE_ENV = 'development';
+}
 if (process.env.NODE_ENV !== 'production'){
     console.log('NODE_ENV : ' + process.env.NODE_ENV);
 }
-// if (process.env.NODE_ENV === 'test') {
-//     require('dotenv').config({ path: './env/test.env' });
-// }
+if (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'development') {
+    require('dotenv').config({ path: './env/' + process.env.NODE_ENV + '.env' });
+}
 
 module.exports = {
     env: process.env.NODE_ENV || 'development',
     api: {
         host: process.env.API_HOST || 'localhost',
-        port: process.env.API_PORT || 8000
+        port: process.env.API_PORT || '8000'
     },
     worker: {
         host: process.env.WORKER_HOST || 'localhost',
-        port: process.env.WORKER_PORT || 8080
+        port: process.env.WORKER_PORT || '9000'
     },
-    mongodb: process.env.MONGODB_URI || 'mongodb://localhost:27017/debug',
+    mongodb: process.env.MONGODB_URI || 'mongodb://mongodb:27017/hapi-dev-debug',
     rabbitmq: process.env.RABBITMQ_URI || 'amqp://rabbitmq',
     key: {
         privateKey: process.env.PRIVATE_KEY || 'YourPrivateKey',

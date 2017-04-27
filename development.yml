@@ -28,11 +28,12 @@ services:
     tty: true
     environment:
       - COMPOSE_HTTP_TIMEOUT=200
+      - NODE_ENV=development
+    env_file:
+      - './config/env/development.env'
     depends_on:
       - rabbitmq
       - mongodb
-    env_file:
-      - ./config/env/development.env
 
   worker:
     build: ./worker
@@ -41,8 +42,9 @@ services:
     tty: true
     environment:
       - COMPOSE_HTTP_TIMEOUT=200
+      - NODE_ENV=development
     env_file:
-      - ./config/env/development.env
+      - './config/env/development.env'
     depends_on:
       - rabbitmq
       - mongodb

@@ -1,6 +1,6 @@
-import Mongoose from 'mongoose';
+const Mongoose = require('mongoose');
 const Schema = Mongoose.Schema;
-import bcrypt from 'bcryptjs';
+const Bcrypt = require('bcryptjs');
 
 // set up a mongoose model
 const UserSchema = new Schema({
@@ -87,7 +87,7 @@ UserSchema.methods.authenticate = (password, encrypt) => {
   // console.log('UserSchema.methods.authenticate');
   // console.log('password : '+password);
   // console.log('encrypt : '+encrypt);
-    return bcrypt.compareSync(password, encrypt);
+    return Bcrypt.compareSync(password, encrypt);
 
 };
 

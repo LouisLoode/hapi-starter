@@ -1,11 +1,11 @@
-import UserModel from '../src/models/user';
+const UserModel = require('../src/models/user');
 
 const policies = module.exports = {};
 
 policies.Jwt = (decoded, request, callback) => {
 
     UserModel.findOne({ _id: decoded.id }).then((user, err) => {
-      
+
         if (err) {
             console.log(err);
         }
@@ -13,9 +13,9 @@ policies.Jwt = (decoded, request, callback) => {
             request.auth.crendentials = user.toObject();
             return callback(null, true);
         }
-        else {
-            return callback(null, false);
-        }
+
+        return callback(null, false);
+
 
     });
 

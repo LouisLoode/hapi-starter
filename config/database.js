@@ -1,6 +1,6 @@
-import Mongoose from 'mongoose';
+const Mongoose = require('mongoose');
 // import BlueBird from 'bluebird';
-import Config from './config';
+const Config = require('./config');
 
 // console.log(Config.mongodb);
 

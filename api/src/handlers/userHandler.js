@@ -1,5 +1,5 @@
-import Boom from 'boom';
-import UserModel from '../models/user';
+const Boom = require('boom');
+const UserModel = require('../models/user');
 
 const userHandler = {
 
@@ -58,8 +58,16 @@ const userHandler = {
 
     getAllUsers(req, res) {
 
+        const pageOptions = {
+            page: req.query.page || 0,
+            limit: req.query.limit || 10
+        };
+
         //Fetch all data from mongodb User Collection
-        UserModel.find({}, (error, data) => {
+        UserModel.find()
+        .skip(pageOptions.page * pageOptions.limit)
+        .limit(pageOptions.limit)
+        .exec((error, data) => {
 
             if (error) {
                 res(Boom.serverUnavailable('Failed to get data', error));

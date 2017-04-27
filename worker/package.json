@@ -6,14 +6,12 @@
   "author": "Louisloode",
   "license": "ISC",
   "scripts": {
-    "start": "nodemon bootstrap.js --config nodemon.json",
+    "start": "nodemon server.js --config nodemon.json",
     "test": "lab src -v -P spec",
-    "lint": "eslint server.js queues || true"
+    "lint": "eslint server.js src || true"
   },
   "dependencies": {
     "amqp": "^0.2.6",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-register": "^6.24.1",
     "bcryptjs": "^2.4.3",
     "dotenv": "^4.0.0",
     "mongoose": "^4.9.5",

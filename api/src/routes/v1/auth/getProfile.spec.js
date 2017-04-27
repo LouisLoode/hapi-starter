@@ -1,15 +1,24 @@
-require( 'babel-core/register' );
-
 const Code = require('code');   // assertion library
 const Lab = require('lab');
-const UserModel = require('../../../src/models/user');
-const AuthHandler = require('../../handlers/authHandler');
+const UserModel = require('../../../../src/models/user');
+const AuthHandler = require('../../../handlers/authHandler');
 
-const Server = require('../../../server');
+const Server = require('../../../../server');
 const Faker = require('faker');
 
 const lab = exports.lab = Lab.script();
 
+const sleep = (ms) => {
+
+    return new Promise((resolve) => setTimeout(resolve, ms));
+};
+
+const testSleep = () => {
+
+    console.log('Taking a break...');
+    sleep(2000);
+    console.log('Two second later');
+};
 
 const randomlastName = Faker.name.lastName(); // Rowan
 // const randomfirstName = Faker.name.firstName(); // Djoko
@@ -21,6 +30,8 @@ let token_user;
 lab.experiment('GetProfile route', () => {
 
     lab.before((done) => {
+
+        testSleep();
 
         const input = {
             username: randomlastName,
@@ -58,11 +69,11 @@ lab.experiment('GetProfile route', () => {
 
         const options = {
             method: 'GET',
-            url: '/auth/profile'
+            url: '/v1/auth/profile'
         };
 
         Server.inject(options, (response, error) => {
-          console.log(response.result);
+
             Code.expect(response.statusCode).to.equal(401);
             Code.expect(response.result.error).to.equal('Unauthorized');
             Code.expect(response.result.message).to.equal('Missing authentication');
@@ -78,7 +89,7 @@ lab.experiment('GetProfile route', () => {
     //
     //     const options = {
     //         method: 'GET',
-    //         url: '/auth/profile',
+    //         url: '/v1/auth/profile',
     //         headers: {
     //             authorization: 'Bearer qdsklmf' + token_user
     //         }
@@ -100,14 +111,14 @@ lab.experiment('GetProfile route', () => {
 
         const options = {
             method: 'GET',
-            url: '/auth/profile',
+            url: '/v1/auth/profile',
             headers: {
                 authorization: 'Bearer ' + token_user
             }
         };
 
         Server.inject(options, (response, error) => {
-console.log(response.result);
+
             Code.expect(response.statusCode).to.equal(200);
             Code.expect(response.result.message).to.equal('User Data Successfully Fetched');
             Code.expect(response.result.data.username).to.equal(randomlastName);

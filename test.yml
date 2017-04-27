@@ -8,9 +8,6 @@ services:
     environment:
       - RABBITMQ_DEFAULT_USER=guest
       - RABBITMQ_DEFAULT_PASS=guest
-    ports:
-      - 15672:15672
-      - 5672:5672
 
   mongodb:
     image: mongo:3.0.2
@@ -18,33 +15,25 @@ services:
     restart: always
     volumes:
       - "../mongo_data:/data/db"
-    ports:
-      - 27017:27017
 
   api:
     build: ./api
-    restart: always
-    command: npm start
+    command: npm test
     tty: true
     environment:
       - COMPOSE_HTTP_TIMEOUT=200
-      - NODE_ENV=development
-    env_file:
-      - './config/env/development.env'
+      - NODE_ENV=test
     depends_on:
       - rabbitmq
       - mongodb
 
   worker:
     build: ./worker
-    restart: always
-    command: npm start
+    command: npm test
     tty: true
     environment:
       - COMPOSE_HTTP_TIMEOUT=200
-      - NODE_ENV=development
-    env_file:
-      - './config/env/development.env'
+      - NODE_ENV=test
     depends_on:
       - rabbitmq
       - mongodb

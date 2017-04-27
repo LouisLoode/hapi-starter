@@ -1,50 +1,21 @@
 version: '2'
 services:
 
-  rabbitmq:
-    image: rabbitmq:3-management
-    container_name: hapi_rabbit
-    restart: always
-    environment:
-      - RABBITMQ_DEFAULT_USER=guest
-      - RABBITMQ_DEFAULT_PASS=guest
-    ports:
-      - 15672:15672
-      - 5672:5672
-
-  mongodb:
-    image: mongo:3.0.2
-    container_name: hapi_mongo
-    restart: always
-    ports:
-      - 27017:27017
-
   api:
     build: ./api
     container_name: hapi_api
-    tty: true
     restart: always
-    environment:
-      - COMPOSE_HTTP_TIMEOUT=200
     volumes:
       - "./api:/api"
       - "./config:/api/config"
+      - "./models:/api/src/models"
     ports:
-      - 8000:8000
-    depends_on:
-      - rabbitmq
-      - mongodb
+      - 9000:9000
 
   worker:
     build: ./worker
     container_name: hapi_worker
-    tty: true
-    restart: always
-    environment:
-      - COMPOSE_HTTP_TIMEOUT=200
     volumes:
       - "./worker:/worker"
       - "./config:/worker/config"
-    depends_on:
-      - rabbitmq
-      - mongodb
+      - "./models:/worker/src/models"

@@ -1,0 +1,86 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "volumes": [
+    {
+      "name": "api",
+      "host": {
+        "sourcePath": "/var/app/current/api"
+      }
+    },
+    {
+      "name": "worker",
+      "host": {
+        "sourcePath": "/var/app/current/worker"
+      }
+    },
+    {
+      "name": "config",
+      "host": {
+        "sourcePath": "/var/app/current/config"
+      }
+    },
+    {
+      "name": "models",
+      "host": {
+        "sourcePath": "/var/app/current/models"
+      }
+    }
+  ],
+  "containerDefinitions": [
+    {
+      "name": "api",
+      "image": "node:6",
+      "essential": true,
+      "memory": 128,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 8000
+        }
+      ],
+      "command": [
+        "/bin/bash",
+        "/usr/src/api/run.sh"
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "api",
+          "containerPath": "/usr/src/api"
+        },
+        {
+          "sourceVolume": "config",
+          "containerPath": "/usr/src/api/config"
+        },
+        {
+          "sourceVolume": "models",
+          "containerPath": "/usr/src/api/src/models"
+        }
+      ]
+    },
+    {
+      "name": "worker",
+      "image": "node:7",
+      "essential": true,
+      "memory": 128,
+      "command": [
+        "/bin/bash",
+        "/usr/src/worker/run.sh"
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "worker",
+          "containerPath": "/usr/src/worker"
+        },
+        {
+          "sourceVolume": "config",
+          "containerPath": "/usr/src/worker/config"
+        },
+        {
+          "sourceVolume": "models",
+          "containerPath": "/usr/src/worker/src/models"
+        }
+      ]
+    }
+
+  ]
+}

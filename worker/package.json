@@ -6,7 +6,23 @@
   "author": "Louisloode",
   "license": "ISC",
   "scripts": {
-    "start": "node app.js",
-    "test": "lab -t 100 test"
+    "start": "nodemon server.js --config nodemon.json",
+    "test": "lab src -v -P spec",
+    "lint": "eslint server.js src || true"
+  },
+  "dependencies": {
+    "amqp": "^0.2.6",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^4.0.0",
+    "mongoose": "^4.9.5",
+    "nodemon": "^1.11.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-eslint": "^7.2.3",
+    "eslint": "^3.19.0",
+    "eslint-config-hapi": "^10.0.0",
+    "eslint-plugin-hapi": "^4.0.0",
+    "eslint-plugin-import": "^2.2.0"
   }
 }

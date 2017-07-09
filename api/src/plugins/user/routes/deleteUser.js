@@ -1,19 +1,20 @@
-const AuthHandler = require('../../../handlers/authHandler');
+const UserHandler = require('../handlers');
 const Joi = require('joi');
 
 module.exports = {
-    method: 'GET',
-    path: '/v1/auth/profile',
+    method: 'DELETE',
+    path: '/v1/users',
     config: {
         // Include this API in swagger documentation
+        auth: 'jwt',
         tags: ['api'],
-        description: 'Get One User data',
-        notes: 'Get Profile User Authed',
+        description: 'Delete One User',
+        notes: 'Delete One User',
         validate: {
             headers: Joi.object({
                 'authorization': Joi.string().required()
             }).unknown()
         }
     },
-    handler: AuthHandler.getProfile
+    handler: UserHandler.deleteOneUser
 };

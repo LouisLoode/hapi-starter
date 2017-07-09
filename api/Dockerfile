@@ -14,6 +14,3 @@ RUN yarn install
 
 # Expose our server port.
 EXPOSE 9000
-
-# Run our app.
-#CMD npm start

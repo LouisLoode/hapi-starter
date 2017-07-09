@@ -14,9 +14,11 @@ const Glob = require('glob');
 const Path = require('path');
 
 // Import configuration
-const Policies = require('./config/policies');
 const Config = require('./config/config');
-const Swagger = require('./config/swagger');
+
+// Import middlewares
+const Policies = require('./src/middlewares/policies');
+const Swagger = require('./src/middlewares/swagger');
 
 const server = new Hapi.Server();
 
@@ -82,22 +84,14 @@ server.register(HapiAuthJwt2, () => {
 
     server.auth.default('jwt');
 
-    if (process.env.NODE_ENV !== 'production' || process.env.NODE_ENV !== 'test'){
-        console.log('ROUTING :');
-    }
-
     // Load routes
-    Glob.sync('src/routes/**/*.js', {
+    Glob.sync('./src/plugins/**/index.js', {
         root: __dirname,
-        ignore: 'src/routes/**/*.spec.js'
+        ignore: './src/plugins/**/*.spec.js'
     }).forEach((file) => {
-
-        const route = require(Path.join(__dirname, file));
-        server.route(route);
-
+        server.register(require(file));
     });
 
-    // if (process.env.NODE_ENV !== 'test') {
     server.register({ register: Blipp, options: { showAuth : true } }, (err) => {
 
         if (err) {
@@ -115,9 +109,7 @@ server.register(HapiAuthJwt2, () => {
             console.log(`Environment ${Config.env}`);
 
         });
-
     });
-    // }
 });
 
 module.exports = server;

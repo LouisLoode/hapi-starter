@@ -1,4 +1,4 @@
-const UserModel = require('../src/models/user');
+const UserModel = require('../models/user');
 
 const policies = module.exports = {};
 

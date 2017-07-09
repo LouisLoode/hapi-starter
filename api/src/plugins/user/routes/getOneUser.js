@@ -1,25 +1,23 @@
-const UserHandler = require('../../../handlers/userHandler');
+const UserHandler = require('../handlers');
 const Joi = require('joi');
 
 module.exports = {
     method: 'GET',
-    path: '/v1/users',
+    path: '/v1/users/{id}',
     config: {
         // Include this API in swagger documentation
         auth: 'jwt',
-        // auth: false,
         tags: ['api'],
-        description: 'Get All Users',
-        notes: 'Get All Users',
-        cache: {
-            expiresIn: 15 * 1000,
-            privacy: 'private'
-        },
+        description: 'Get One User data',
+        notes: 'Get One User data',
         validate: {
+            params: {
+                id: Joi.string().required()
+            },
             headers: Joi.object({
                 'authorization': Joi.string().required()
             }).unknown()
         }
     },
-    handler: UserHandler.getAllUsers
+    handler: UserHandler.getOneUser
 };

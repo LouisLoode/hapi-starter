@@ -1,4 +1,4 @@
-const UserHandler = require('../../../handlers/userHandler');
+const UserHandler = require('../handlers');
 const Joi = require('joi');
 
 module.exports = {

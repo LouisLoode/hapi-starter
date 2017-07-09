@@ -1,5 +1,5 @@
 const Boom = require('boom');
-const UserModel = require('../models/user');
+const UserModel = require('../../models/user');
 
 const userHandler = {
 

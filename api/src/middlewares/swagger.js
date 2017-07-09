@@ -1,4 +1,4 @@
-const Pack = require('../package');
+const Pack = require('../../package');
 
 module.exports = {
     register: require('hapi-swagger'),

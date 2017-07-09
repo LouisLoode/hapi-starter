@@ -1,4 +1,4 @@
-const AuthHandler = require('../../../handlers/authHandler');
+const AuthHandler = require('../handlers');
 const Joi = require('joi');
 
 module.exports = {

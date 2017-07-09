@@ -31,7 +31,7 @@ Mongoose.connection.on('disconnected', () => {
 });
 
 // When the connection is open
-Mongoose.connection.on('open', () => {
+Mongoose.connection.on('openUri', () => {
 
     console.log('Mongoose default connection is open');
 

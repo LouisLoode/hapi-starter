@@ -1,7 +1,7 @@
 const Code = require('code');   // assertion library
 const Lab = require('lab');
 const UserModel = require('../../../../src/models/user');
-const AuthHandler = require('../../../handlers/authHandler');
+const AuthHandler = require('../handlers');
 
 const Server = require('../../../../server');
 const Faker = require('faker');

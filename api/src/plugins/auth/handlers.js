@@ -1,8 +1,8 @@
 const Jwt = require('jsonwebtoken');
 const Bcrypt = require('bcryptjs');
 const Boom = require('boom');
-const UserModel = require('../models/user');
-const Config = require('../../config/config');
+const UserModel = require('../../models/user');
+const Config = require('../../../config/config');
 
 const authHandler = {
 

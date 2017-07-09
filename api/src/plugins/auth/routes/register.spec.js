@@ -6,7 +6,6 @@ const Faker = require('faker');
 
 const lab = exports.lab = Lab.script();
 
-
 const randomlastName = Faker.name.lastName(); // Rowan
 // const randomfirstName = Faker.name.firstName(); // Djoko
 const randomEmail = Faker.internet.email(); // Kassandra.Haley@erich.biz

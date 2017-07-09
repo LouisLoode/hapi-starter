@@ -92,10 +92,10 @@ const userHandler = {
             }
             else {
                 if (data.length === 0) {
-                    res(Boom.notFound('User Not Found', data));
+                    return res(Boom.notFound('User Not Found', data));
                 }
                 else {
-                    res({ statusCode: 200, message: 'User Data Successfully Fetched', data });
+                    return res({ statusCode: 200, message: 'User Data Successfully Fetched', data });
                 }
             }
         });

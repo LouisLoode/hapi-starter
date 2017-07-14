@@ -32,7 +32,8 @@ const UserSchema = new Schema({
     apikey: { type: String, default: null },
     connectionsTokens: { type: Array },
     connections: {
-        facebook: { type: String, default: null }
+        facebook: { type: String, default: null },
+        twitter: { type: String, default: null }
     },
     rights: {
         type: { type: String, enum: ['user', 'admin'], default: 'user' }
@@ -76,7 +77,6 @@ UserSchema.options.toJSON = {
 UserSchema.pre('update',() => {
 
     this.update({},{ $set: { updated: new Date() } });
-
 });
 
 /**
@@ -84,11 +84,7 @@ UserSchema.pre('update',() => {
  */
 UserSchema.methods.authenticate = (password, encrypt) => {
 
-  // console.log('UserSchema.methods.authenticate');
-  // console.log('password : '+password);
-  // console.log('encrypt : '+encrypt);
     return Bcrypt.compareSync(password, encrypt);
-
 };
 
 

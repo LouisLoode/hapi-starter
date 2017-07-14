@@ -9,6 +9,7 @@ module.exports = {
         tags: ['api'],
         description: 'Get One User data',
         notes: 'Get Profile User Authed',
+        auth: 'jwt',
         validate: {
             headers: Joi.object({
                 'authorization': Joi.string().required()

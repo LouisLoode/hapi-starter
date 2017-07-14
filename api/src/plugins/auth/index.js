@@ -1,5 +1,4 @@
 const Glob = require('glob');
-const Path = require('path');
 
 exports.register = function (plugin, options, next) {
 
@@ -10,18 +9,19 @@ exports.register = function (plugin, options, next) {
     Glob.sync('src/plugins/auth/routes/**/*.js', {
         root: __dirname,
         ignore: 'src/plugins/auth/routes/**/*.spec.js'
-    }).forEach((file) => {
-        routes.push(require('/api/'+file));
+    }).forEach( ( file ) => {
+
+        routes.push(require('/api/' + file));
     });
 
     plugin.route(routes);
 
-    return next()
-}
+    return next();
+};
 
 exports.register.attributes = {
     name: 'auth',
     version: '0.0.1',
     description: 'Hapi auth plugin',
     main: 'index.js'
-}
+};

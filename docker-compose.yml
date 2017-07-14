@@ -9,6 +9,7 @@ services:
       - "./api:/api"
       - "./config:/api/config"
       - "./models:/api/src/models"
+      - "./services:/api/src/services"
       - "/api/node_modules"
     ports:
       - 9000:9000
@@ -20,4 +21,5 @@ services:
       - "./worker:/worker"
       - "./config:/worker/config"
       - "./models:/worker/src/models"
+      - "./services:/worker/src/services"
       - "/worker/node_modules"

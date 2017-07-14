@@ -1,5 +1,4 @@
 const RabbitMQ = require('../../../../config/rabbitmq');
-
 module.exports = {
     method: 'GET', // Methods Type
     path: '/v1/email', // Url
@@ -9,14 +8,15 @@ module.exports = {
         description: 'Home',
         notes: 'Get home page'
     },
-    handler: function (request, reply) {
+    handler(request, reply) {
 
         const body = {
-            key:'lol',
-            key2:'value',
-            key3:'value',
-            key4:'value',
-            key5:'value'
+            to: 'louisdebraine@gmail.com',
+            template: 'welcome',
+            data: {
+                username: 'louisdebraine@gmail.com',
+                title: 'Title'
+            }
         };
 
 
@@ -26,9 +26,7 @@ module.exports = {
             // priority: 0, // 0 to 9
             contentType: 'application/json'
         };
-        RabbitMQ.publish('lol', body, options);
-
-        reply({ msg: 'Coucou !'   });
-
+        RabbitMQ.publish('email', body, options);
+        reply({ msg: 'Coucou !' });
     }
 };

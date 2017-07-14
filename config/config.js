@@ -25,15 +25,26 @@ module.exports = {
         tokenExpiration: process.env.TOKEN_EXPIRATION || 3600000,
         tokenExpirationDescription: process.env.TOKEN_EXPIRATION_DESCRIPTION || '1 hour'
     },
+    mailjet: {
+        email: 'louisdebraine@gmail.com',
+        key: process.env.MAILJET_KEY,
+        secret: process.env.MAILJET_SECRET,
+    },
     facebook: {
         redirect_uri: 'http://' + process.env.API_HOST + ':' + process.env.API_PORT + '/connect/facebook/callback',
         key: process.env.FACEBOOK_KEY,
         secret: process.env.FACEBOOK_SECRET,
-        callback: '/auth/handle_facebook',
+        callback: '/v1/auth/facebook/handler',
         scope: [
             'public_profile',
             'email',
             'user_friends'
         ]
+    },
+    twitter: {
+      redirect_uri: 'http://' + process.env.API_HOST + ':' + process.env.API_PORT + '/connect/twitter/callback',
+      key: process.env.TWITTER_KEY,
+      secret: process.env.TWITTER_SECRET,
+      callback: '/v1/auth/twitter/handler'
     }
 };

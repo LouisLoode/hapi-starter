@@ -29,3 +29,15 @@ exports.isValidObjectID = (str) => {
     return valid;
 
 };
+
+//@TODO
+// exports.createJwt = (profile) => {
+//
+//   // sign asynchronously
+//     return jwt.sign({ foo: 'bar' }, cert, { algorithm: 'RS256' }, function(err, token) {
+//       console.log(token);
+//     });
+//     return jwt.sign(profile, config.server.secret, {
+//         expiresIn: '2h'
+//     });
+// };

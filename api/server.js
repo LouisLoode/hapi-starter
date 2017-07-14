@@ -4,6 +4,7 @@ const Blipp = require('blipp');
 const Good = require('good');
 const Inert = require('inert');
 const Vision = require('vision');
+const Yar = require('yar');
 
 // Import database
 require('./config/database');
@@ -19,6 +20,8 @@ const Config = require('./config/config');
 // Import middlewares
 const Policies = require('./src/middlewares/policies');
 const Swagger = require('./src/middlewares/swagger');
+const Grant = require('grant-hapi');
+const grant = new Grant();
 
 const server = new Hapi.Server();
 
@@ -75,6 +78,28 @@ if (process.env.NODE_ENV !== 'test') {
     });
 }
 
+server.register([
+    // REQUIRED:
+    {
+        register: Yar,
+        options: {
+            cookieOptions: {
+                password: 'pasqsdkjflmqdsfqkdsjkdsfdqsflmdsqkflkqdsflksword',
+                isSecure: false
+            }
+        }
+    },
+    // mount grant
+    {
+        register: grant,
+        options: Config
+    }], (err) => {
+
+    if (err) {
+        console.log(err);
+    }
+});
+
 server.register(HapiAuthJwt2, () => {
     // Define strategy
     server.auth.strategy('jwt', 'jwt',{
@@ -82,13 +107,14 @@ server.register(HapiAuthJwt2, () => {
         verifyFunc: Policies.Jwt
     });
 
-    server.auth.default('jwt');
+    // server.auth.default('jwt');
 
     // Load routes
     Glob.sync('./src/plugins/**/index.js', {
         root: __dirname,
         ignore: './src/plugins/**/*.spec.js'
     }).forEach((file) => {
+
         server.register(require(file));
     });
 

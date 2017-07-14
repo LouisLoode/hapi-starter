@@ -6,7 +6,8 @@
   "author": "Louisloode",
   "license": "ISC",
   "scripts": {
-    "start": "nodemon server.js --config nodemon.json",
+    "dev": "nodemon server.js --config nodemon.json",
+    "start": "node server.js",
     "test": "lab src -v -P spec",
     "lint": "eslint server.js src || true"
   },
@@ -15,7 +16,8 @@
     "bcryptjs": "^2.4.3",
     "dotenv": "^4.0.0",
     "mongoose": "^4.9.5",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "request": "^2.81.0"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",

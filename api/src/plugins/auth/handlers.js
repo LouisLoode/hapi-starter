@@ -1,17 +1,16 @@
-const Jwt = require('jsonwebtoken');
+
 const Bcrypt = require('bcryptjs');
 const Boom = require('boom');
 const UserModel = require('../../models/user');
-const Config = require('../../../config/config');
 
 const authHandler = {
 
     // Configurations files
-    createToken(user) {
-
-        return Jwt.sign({ id: user.id, username: user.username, email: user.email }, Config.key.privateKey, { algorithm: 'HS256', expiresIn: '1h' } );
-
-    },
+    // createToken(user) {
+    //
+    //     return Jwt.sign({ id: user.id, username: user.username, email: user.email }, Config.key.privateKey, { algorithm: 'HS256', expiresIn: '1h' } );
+    //
+    // },
 
     verifyCredentials(req, res) {
 

@@ -1,3 +1,4 @@
+const AuthUtils = require('../utils');
 const AuthHandler = require('../handlers');
 const Joi = require('joi');
 
@@ -29,6 +30,6 @@ module.exports = {
     },
     handler: (request, reply) => {
 
-        reply({ statusCode: 201, message: 'User Login Successfully', data:request.pre.user, token: AuthHandler.createToken(request.pre.user) }).code(201);
+        reply({ statusCode: 201, message: 'User Login Successfully', data:request.pre.user, token: AuthUtils.createJwt(request.pre.user) }).code(201);
     }
 };

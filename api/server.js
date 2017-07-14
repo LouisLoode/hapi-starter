@@ -25,15 +25,15 @@ const grant = new Grant();
 
 const server = new Hapi.Server();
 
-// bootstrap models
-Glob.sync('src/models/*.js', {
-    root: __dirname,
-    ignore: 'src/models/**/*.spec.js'
-}).forEach((file) => {
-
-    require(Path.join(__dirname, file));
-
-});
+// bootstrap models @TODO useless
+// Glob.sync('src/models/*.js', {
+//     root: __dirname,
+//     ignore: 'src/models/**/*.spec.js'
+// }).forEach((file) => {
+//
+//     require(Path.join(__dirname, file));
+//
+// });
 
 server.connection({
     port: 9000,

@@ -11,7 +11,7 @@
 
 # Shared ressource
 config/env/production.env
-config/env/development.env
+#config/env/development.env
 
 # Api
 api/node_modules/*

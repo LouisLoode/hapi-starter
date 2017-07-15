@@ -29,7 +29,8 @@ lab.experiment('Register route', () => {
         };
 
         Server.inject(options, (response, error) => {
-
+          console.log(error);
+          console.log(response);
             Code.expect(response.statusCode).to.equal(400);
             Code.expect(response.result.error).to.equal('Bad Request');
             Code.expect(response.result.message).to.equal('child "username" fails because ["username" is required]');

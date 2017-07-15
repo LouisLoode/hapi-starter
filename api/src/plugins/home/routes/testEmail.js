@@ -12,7 +12,7 @@ module.exports = {
 
         const body = {
             to: 'louisdebraine@gmail.com',
-            template: 'welcome',
+            template: 'user_welcome',
             data: {
                 username: 'louisdebraine@gmail.com',
                 title: 'Title'

@@ -75,28 +75,28 @@ lab.experiment('Login route', () => {
     });
 
     //Success case
-    lab.test('login an user by username with success', (done) => {
-
-        const options = {
-            method: 'POST',
-            url: '/v1/auth/login',
-            payload: {
-                username: randomlastName,
-                password: 'testtest'
-            }
-        };
-
-        Server.inject(options, (response, error) => {
-
-            Code.expect(response.statusCode).to.equal(201);
-            Code.expect(response.result.data.username).to.equal(randomlastName);
-            Code.expect(response.result.data.email).to.equal(randomEmail);
-            Code.expect(response.result.data._id).to.equal(id_user);
-            done();
-
-        });
-
-    });
+    // lab.test('login an user by username with success', (done) => {
+    //
+    //     const options = {
+    //         method: 'POST',
+    //         url: '/v1/auth/login',
+    //         payload: {
+    //             username: randomlastName,
+    //             password: 'testtest'
+    //         }
+    //     };
+    //
+    //     Server.inject(options, (response, error) => {
+    //
+    //         Code.expect(response.statusCode).to.equal(201);
+    //         Code.expect(response.result.data.username).to.equal(randomlastName);
+    //         Code.expect(response.result.data.email).to.equal(randomEmail);
+    //         Code.expect(response.result.data._id).to.equal(id_user);
+    //         done();
+    //
+    //     });
+    //
+    // });
 
     //Success case
     lab.test('check if verif token func is available', (done) => {
@@ -148,7 +148,7 @@ lab.experiment('Login route', () => {
             method: 'POST',
             url: '/v1/auth/login',
             payload: {
-                username: randomlastName,
+                email: randomEmail,
                 password: 'testtestqdsf'
             }
         };
@@ -171,7 +171,7 @@ lab.experiment('Login route', () => {
             method: 'POST',
             url: '/v1/auth/login',
             payload: {
-                username: randomlastName + 'qsdfqsd',
+                email: 'qsdfqsd' + randomEmail,
                 password: 'testtest'
             }
         };
@@ -179,7 +179,7 @@ lab.experiment('Login route', () => {
         Server.inject(options, (response, error) => {
 
             Code.expect(response.statusCode).to.equal(400);
-            Code.expect(response.result.message).to.equal('Incorrect username or email!');
+            Code.expect(response.result.message).to.equal('Incorrect email!');
             Code.expect(response.result.error).to.equal('Bad Request');
             done();
 

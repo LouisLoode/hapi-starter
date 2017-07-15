@@ -20,7 +20,7 @@ const authHandler = {
         UserModel.findOne({
             $or: [
                 { email: req.payload.email },
-                { username: req.payload.username }
+                // { username: req.payload.username }
             ]
         }, (err, user) => {
 
@@ -38,7 +38,7 @@ const authHandler = {
                     }
                 }
                 else {
-                    res(Boom.badRequest('Incorrect username or email!'));
+                    res(Boom.badRequest('Incorrect email!'));
                 }
             }
 

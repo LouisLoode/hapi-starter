@@ -16,19 +16,13 @@ module.exports = {
         description: 'Login an user',
         notes: 'Login an user',
         validate: {
-            payload: Joi.alternatives().try(
-                Joi.object({
-                    username: Joi.string().alphanum().min(2).max(30).required(),
-                    password: Joi.string().required()
-                }),
-                Joi.object({
-                    email: Joi.string().email().required(),
-                    password: Joi.string().required()
-                })
-            )
+            payload: Joi.object({
+                email: Joi.string().email().required(),
+                password: Joi.string().required()
+            })
         }
     },
-    handler: (request, reply) => {
+    handler(request, reply) {
 
         reply({ statusCode: 201, message: 'User Login Successfully', data:request.pre.user, token: AuthUtils.createJwt(request.pre.user) }).code(201);
     }

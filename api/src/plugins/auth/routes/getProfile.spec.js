@@ -2,6 +2,7 @@ const Code = require('code');   // assertion library
 const Lab = require('lab');
 const UserModel = require('../../../../src/models/user');
 const AuthHandler = require('../handlers');
+const AuthUtils = require('../utils');
 
 const Server = require('../../../../server');
 const Faker = require('faker');
@@ -20,7 +21,7 @@ const testSleep = () => {
     console.log('Two second later');
 };
 
-const randomlastName = Faker.name.lastName(); // Rowan
+const randomlastName = Faker.name.lastName() + 'dsmq'; // Rowan
 // const randomfirstName = Faker.name.firstName(); // Djoko
 const randomEmail = Faker.internet.email(); // Kassandra.Haley@erich.biz
 
@@ -55,9 +56,11 @@ lab.experiment('GetProfile route', () => {
                     console.log(err);
                 }
 
+                console.log(data);
+
                 // If the user is saved successfully, issue a JWT
                 id_user = data._id;
-                token_user = AuthHandler.createToken(user);
+                token_user = AuthUtils.createJwt(user);
                 done();
 
             });

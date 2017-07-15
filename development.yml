@@ -30,7 +30,8 @@ services:
       - COMPOSE_HTTP_TIMEOUT=200
       - NODE_ENV=development
     env_file:
-      - './config/env/development.env'
+      - './config/env/production.env'
+      # - './config/env/development.env'
     depends_on:
       - rabbitmq
       - mongodb
@@ -44,7 +45,8 @@ services:
       - COMPOSE_HTTP_TIMEOUT=200
       - NODE_ENV=development
     env_file:
-      - './config/env/development.env'
+      - './config/env/production.env'
+      # - './config/env/development.env'
     depends_on:
       - rabbitmq
       - mongodb

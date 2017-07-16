@@ -5,14 +5,10 @@ const userHandler = {
 
     verifyUniqueUser(req, res) {
 
+        console.log('coucou1');
         // Find an entry from the database that
         // matches either the email or username
-        UserModel.findOne({
-            $or: [
-                { email: req.payload.email },
-                { username: req.payload.username }
-            ]
-        }, (err, user) => {
+        UserModel.findOne({ email: req.payload.email }, (err, user) => {
 
             if (err){
                 res(Boom.badRequest(err));

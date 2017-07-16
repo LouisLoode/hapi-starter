@@ -11,6 +11,7 @@ exports.register = function (plugin, options, next) {
         ignore: 'src/plugins/auth/routes/**/*.spec.js'
     }).forEach( ( file ) => {
 
+        console.log(file);
         routes.push(require('/api/' + file));
     });
 

@@ -2,27 +2,14 @@
 const Bcrypt = require('bcryptjs');
 const Boom = require('boom');
 const UserModel = require('../../models/user');
+const AuthUtils = require('./utils.js');
 
 const authHandler = {
-
-    // Configurations files
-    // createToken(user) {
-    //
-    //     return Jwt.sign({ id: user.id, username: user.username, email: user.email }, Config.key.privateKey, { algorithm: 'HS256', expiresIn: '1h' } );
-    //
-    // },
 
     verifyCredentials(req, res) {
 
         const password = req.payload.password;
-        // Find an entry from the database that
-        // matches either the email or username
-        UserModel.findOne({
-            $or: [
-                { email: req.payload.email },
-                // { username: req.payload.username }
-            ]
-        }, (err, user) => {
+        UserModel.findOne({ email: req.payload.email }, (err, user) => {
 
             if (err){
                 res(Boom.badRequest(err));
@@ -104,7 +91,7 @@ const authHandler = {
                     }
                     else {
                         // If the user is saved successfully, issue a Jwt
-                        res({ statusCode: 201, message: 'User Register Successfully', data, token: authHandler.createToken(user) }).code(201);
+                        res({ statusCode: 201, message: 'User Register Successfully', data, token: AuthUtils.createJwt(user) }).code(201);
                     }
                 });
             });
